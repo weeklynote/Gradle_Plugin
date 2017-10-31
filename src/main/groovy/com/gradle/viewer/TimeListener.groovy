@@ -33,6 +33,7 @@ class TimeListener implements TaskExecutionListener, BuildListener {
                 printf "%7sms  %s\n", time
             }
         }
+
     }
 
     @Override
