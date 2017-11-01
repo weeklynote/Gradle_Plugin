@@ -1,6 +1,8 @@
 package com.gradle.viewer
 
+
 import com.gradle.bean.LearnExtension
+
 import com.gradle.task.GreetingToFileTask
 import com.gradle.task.LearnTask
 import org.gradle.api.Project
@@ -17,7 +19,6 @@ class LauncherPlugin implements Plugin<Project>{
         addExtensions(project)
         addTasks(project)
         project.afterEvaluate {
-
 
             /**
              * 如果需要执行如下的代码，需要将apply plugin添加到Project的根目录的build.gradle文件中
@@ -47,6 +48,7 @@ class LauncherPlugin implements Plugin<Project>{
             }
         }
         interactWithFile(project)
+        println "${System.properties['os.name']} ${System.properties['os.version']} (${System.properties['os.arch']})"
     }
 
     /**
@@ -78,6 +80,12 @@ class LauncherPlugin implements Plugin<Project>{
          * 更多的内容请查看
          * http://google.github.io/android-gradle-dsl/current/index.html
          */
+        if(android.hasProperty('applicationVariants')){
+            android.applicationVariants.all { variant ->
+                println("variant.buildType.name " + variant.buildType.name)
+                println("variant.buildType.minifyEnabled " + variant.buildType.minifyEnabled)
+            }
+        }
     }
 
     /**

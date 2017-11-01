@@ -1,5 +1,7 @@
 package com.gradle.bean
 
+import org.gradle.api.Project
+
 /**
  * 在插件中构建并存储Gradle配置块中的属性，与配置信息要一一对应
  */
@@ -10,12 +12,12 @@ class LearnExtension {
     boolean readOnly
     String greetingFile
 
+
     LearnExtension() {
         this.sourcePath = ''
         this.readOnly = true
         greetingFile = ''
     }
-
 
     @Override
     String toString() {
