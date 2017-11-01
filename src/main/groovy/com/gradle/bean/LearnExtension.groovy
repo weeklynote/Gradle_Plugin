@@ -8,15 +8,21 @@ class LearnExtension {
     // 属性不能使用private进行修饰，否则在build.gradle文件中将找不到对应的命名
     String sourcePath
     boolean readOnly
+    String greetingFile
 
     LearnExtension() {
         this.sourcePath = ''
         this.readOnly = true
+        greetingFile = ''
     }
 
+
     @Override
-    public String toString() {
+    String toString() {
         return "LearnExtension{" +
-                "sourcePath='" + sourcePath + '\'' + ", readOnly=" + readOnly + '}'
+                "sourcePath='" + sourcePath + '\'' +
+                ", readOnly=" + readOnly +
+                ", greetingFile='" + greetingFile + '\'' +
+                '}'
     }
 }

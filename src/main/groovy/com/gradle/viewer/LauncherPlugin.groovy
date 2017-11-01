@@ -1,6 +1,7 @@
 package com.gradle.viewer
 
 import com.gradle.bean.LearnExtension
+import com.gradle.task.GreetingToFileTask
 import com.gradle.task.LearnTask
 import org.gradle.api.Project
 import org.gradle.api.Plugin
@@ -16,9 +17,14 @@ class LauncherPlugin implements Plugin<Project>{
         addExtensions(project)
         addTasks(project)
         project.afterEvaluate {
-            println("LauncherPlugin afterEvaluate method invoked---" + project.learner.toString())
+
+
             /**
              * 如果需要执行如下的代码，需要将apply plugin添加到Project的根目录的build.gradle文件中
+             *
+             * 因为apply plugin: 'net.gradle.learn'在本例子中是在根目录的build.gradle文件中引用的
+             *
+             * 因此在这里打印LearnExtension的值是空的，需要在Module的Project中才能有值
             */
             project.subprojects { p ->
                 printProject(p)
@@ -36,10 +42,18 @@ class LauncherPlugin implements Plugin<Project>{
                     if(p.hasProperty("android")){
                         printAndroid(p.android)
                     }
+                    println("LauncherPlugin afterEvaluate method invoked---" + p.learner.toString())
                 }
             }
         }
-        println("LauncherPlugin apply method invoked---" + project.buildscript.configurations['classpath'])
+        interactWithFile(project)
+    }
+
+    /**
+     * 操作文件
+     */
+    private void interactWithFile(Project project){
+        project.tasks.create("LearnFileTest", GreetingToFileTask)
     }
 
     private void printProject(Project project){
@@ -66,6 +80,10 @@ class LauncherPlugin implements Plugin<Project>{
          */
     }
 
+    /**
+     * 设置build.gradle配置信息的结构体
+     * @param project
+     */
     private void addExtensions(Project project){
         project.extensions.create(EXTENSION_PATCHER, LearnExtension)
     }

@@ -16,7 +16,7 @@ class LearnTask extends DefaultTask{
     }
 
     @TaskAction
-    public void main(){
+    def main(){
         println("LearnTask main method invoked---" + project.learner.toString())
         println("LearnTask main has property android---" + project.hasProperty("android"))
     }
